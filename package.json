@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/jazzielp/Movies/issues"
   },
-  "homepage": "https://github.com/jazzielp/Movies#readme"
+  "homepage": "https://github.com/jazzielp/Movies#readme",
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
 }
