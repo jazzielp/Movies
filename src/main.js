@@ -9,7 +9,7 @@ const api = axios.create({
 });
 
 const getTrendingMoviesPreview = async () => {
-    const trendingPreviewMovieList = document.querySelector("#trendingPreview-movieList");
+    
     const {data} = await api("/trending/movie/day");
     
 
@@ -25,11 +25,11 @@ const getTrendingMoviesPreview = async () => {
       </div>`
     });
 
-    trendingPreviewMovieList.innerHTML = listMovies.join("");
+    trendingMoviesPreviewList.innerHTML = listMovies.join("");
 }
 
 const getCategoriesPreviw = async () => {
-    const categoriesPreviewList = document.querySelector("#categoriesPreviewList");
+   
     const {data} = await api("genre/movie/list");
 
     const genres = data.genres;
@@ -39,9 +39,20 @@ const getCategoriesPreviw = async () => {
                 <h3 id="id${genre.id}" class="category-title">${genre.name}</h3>
                 </div>`;
     });
-    
+
+
+   
 
     categoriesPreviewList.innerHTML = HtmlGenres.join("");
+    const listCategories = document.querySelectorAll(".category-title");
+    
+    listCategories.forEach( category => {
+        category.addEventListener("click", () => {
+            console.log(category.innerHTML);
+        });
+    });
+    
+
 
 }
 
