@@ -36,7 +36,7 @@ const getCategoriesPreviw = async () => {
 
     const HtmlGenres = genres.map(genre => {
         return `<div class="category-container">
-                <h3 id="id${genre.id}" class="category-title">${genre.name}</h3>
+                <h3 id="id${genre.id}" data-id=${genre.id} class="category-title">${genre.name}</h3>
                 </div>`;
     });
 
@@ -48,12 +48,39 @@ const getCategoriesPreviw = async () => {
     
     listCategories.forEach( category => {
         category.addEventListener("click", () => {
-            console.log(category.innerHTML);
+            const id = category.getAttribute("data-id");
+            location.hash = `#category=${id}-${category.innerHTML}`
         });
     });
     
 
+}
+
+
+const getMoviesByCategory = async (id) => {
+
+    
+    const {data} = await api("discover/movie", {
+        params: {
+            with_genres: id
+        }
+    });
+
+    const movies = data.results;
+    const listMovies = movies.map(movie => {
+        return `
+        <div class="movie-container">
+            <img
+            src="https://image.tmdb.org/t/p/w300/${movie.backdrop_path}"
+            class="movie-img"
+            alt="${movie.original_title}"
+            />
+      </div>`;
+    });
+
+    genericSection.innerHTML = listMovies.join("");
 
 }
+
 
 
