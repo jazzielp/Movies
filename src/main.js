@@ -10,7 +10,7 @@ const api = axios.create({
 
 const getTrendingMoviesPreview = async () => {
     
-    const {data} = await api("/trending/movie/day");
+    const {data} = await api("trending/movie/day");
     
 
     const movies = data.results;
@@ -57,17 +57,8 @@ const getCategoriesPreviw = async () => {
 }
 
 
-const getMoviesByCategory = async (id) => {
-
-    
-    const {data} = await api("discover/movie", {
-        params: {
-            with_genres: id
-        }
-    });
-
-    const movies = data.results;
-    const listMovies = movies.map(movie => {
+const renderMovies = (data, nodo) => {
+    const listMovies = data.map(movie => {
         return `
         <div class="movie-container">
             <img
@@ -78,8 +69,42 @@ const getMoviesByCategory = async (id) => {
       </div>`;
     });
 
-    genericSection.innerHTML = listMovies.join("");
+    nodo.innerHTML = listMovies.join("");
+}
 
+
+const getMoviesByCategory = async (id) => {
+
+    
+    const {data} = await api("discover/movie", {
+        params: {
+            with_genres: id
+        }
+    });
+
+    const movies = data.results;
+    renderMovies(movies, genericSection);
+ 
+
+}
+
+const getMoviesBySearch = async query => {
+    const {data} = await api("search/movie", {
+        params:{
+            query
+        }
+    });
+
+    const movies = data.results;
+    renderMovies(movies, genericSection);
+
+}
+
+const getTrendingMovies = async () => {
+    const {data} =  await api("trending/movie/day");
+    const movies = data.results;
+   
+    renderMovies(movies, genericSection);
 }
 
 

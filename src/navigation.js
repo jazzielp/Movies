@@ -33,6 +33,9 @@ const trendsPage = () => {
     categoriesPreviewSection.classList.add("inactive");
     genericSection.classList.remove("inactive");
     movieDetailSection.classList.add("inactive");
+   getTrendingMovies();
+   headerCategoryTitle.innerHTML = "Trending"
+
 }
 
 const searchPage = () => {
@@ -40,7 +43,7 @@ const searchPage = () => {
     headerSection.style.background = "";
     arrowBtn.classList.remove("inactive");
     arrowBtn.classList.remove("header-arrow--white");
-    headerCategoryTitle.classList.remove("inactive");
+    headerCategoryTitle.classList.add("inactive");
     headerTitle.classList.add("inactive");
     searchForm.classList.remove("inactive");
 
@@ -48,6 +51,9 @@ const searchPage = () => {
     categoriesPreviewSection.classList.add("inactive");
     genericSection.classList.remove("inactive");
     movieDetailSection.classList.add("inactive");
+
+    const [_, query] = location.hash.split("=");
+    getMoviesBySearch(query);
 }
 
 const movieDetallePage = () => {
@@ -108,7 +114,7 @@ const navigator = () => {
 
 
 searchFormBtn.addEventListener("click", () => {
-    location.hash = "#search=";
+    location.hash = "#search=" + searchFormInput.value;
 });
 
 trendingBtn.addEventListener("click", () => {
@@ -117,7 +123,8 @@ trendingBtn.addEventListener("click", () => {
 });
 
 arrowBtn.addEventListener("click", () => {
-    location.hash = "#home";
+    history.back();
+    //location.hash = "#home";
 
 });
 
