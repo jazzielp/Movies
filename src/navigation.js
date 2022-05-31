@@ -34,7 +34,8 @@ const trendsPage = () => {
     genericSection.classList.remove("inactive");
     movieDetailSection.classList.add("inactive");
    getTrendingMovies();
-   headerCategoryTitle.innerHTML = "Trending"
+   headerCategoryTitle.innerHTML = "Trending";
+   window.scroll(0,0);
 
 }
 
@@ -72,6 +73,7 @@ const movieDetallePage = () => {
     movieDetailSection.classList.remove("inactive");
     const [_, movieId] = location.hash.split("=");
     getMovieById(movieId);
+    window.scroll(0,0);
     
 }
 

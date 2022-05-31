@@ -88,8 +88,15 @@ const getTrendingMovies = async () => {
 
 const getMovieById = async id => {
     const {data: movie} =  await api(`movie/${id}`);
-    console.log(movie);
     renderMovieDetail(movie);
+}
+
+const getRelateMoviesById = async id => {
+    const {data} =  await api(`movie/${id}/recommendations`);
+    const listRelatedMovies = data.results;
+    const relatedMoviesContainer = document.querySelector('.relatedMovies-scrollContainer');
+    
+    renderMovies(listRelatedMovies, relatedMoviesContainer);
 }
 
 const renderMovies = (data, nodo) => {
@@ -126,6 +133,8 @@ const renderMovieDetail = (movie) => {
 
         <article id="relatedMovies" class="relatedMovies-container">
           <h2 class="relatedMovies-title">Películas similares</h2>
+          <div class="relatedMovies-scrollContainer">
+          </div>
         
         </article>
 
@@ -135,7 +144,7 @@ const renderMovieDetail = (movie) => {
     movieDetailSection.innerHTML = htmlMovieDetail;
 
     const categoriesList = document.querySelector("#categoriesList");
-
+   
     
     const htmlGenresMovie = genresMovie.map(genre => {
         return ` 
@@ -146,6 +155,10 @@ const renderMovieDetail = (movie) => {
     });
 
     categoriesList.innerHTML = htmlGenresMovie.join("");
+    
+    getRelateMoviesById(movie.id);
+    
+    
 };
 
 const addEventClick = () => {
