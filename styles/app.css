@@ -109,6 +109,29 @@ button {
   border-radius: 8px;
 }
 
+.movie-load{
+  background: #EEEAF2;
+  border-radius: 8px;
+  height: 225px;
+  min-height: 225px;
+  max-height: 225px;
+  width: 150px;
+  min-width: 150px;
+  max-width: 150px;
+  margin-bottom: 15px;
+  animation: loading-skeleton infinite 1.5s;
+}
+
+.movie-load:nth-child(2){
+  animation-delay: .2s;
+}
+
+.movie-load:nth-child(3){
+  animation-delay: .4s;
+}
+
+
+
 .categoriesPreview-list, .categories-list {
   display: flex;
   align-items: center;
@@ -356,4 +379,13 @@ footer {
 /* Navigation */
 .inactive {
   display: none;
+}
+
+@keyframes loading-skeleton {
+  0%, 100% {
+    opacity: 100%;
+  }
+  50% {
+    opacity: 0%;
+  }
 }
