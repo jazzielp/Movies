@@ -101,19 +101,31 @@ const getRelateMoviesById = async id => {
 
 const renderMovies = (data, nodo) => {
     const listMovies = data.map(movie => {
-        return `
-        <div data-id="${movie.id}" class="movie-container">
-            <img
-            src="https://image.tmdb.org/t/p/w300/${movie.poster_path}"
-            class="movie-img"
-            alt="${movie.original_title}"
-            
-            />
-      </div>`;
+        let htmlMovie;
+        if(movie.poster_path === null){
+            htmlMovie = `
+            <div data-id="${movie.id}" class="movie-container movie-container--Url-isNull">
+               <h3>${movie.original_title}</h3>
+            </div>`
+        }else{
+            htmlMovie = `
+            <div data-id="${movie.id}" class="movie-container">
+                <img
+                src=""
+                class="movie-img"
+                alt="${movie.original_title}"
+                data-img ="https://image.tmdb.org/t/p/w300/${movie.poster_path}"
+                
+                />
+          </div>`
+        }
+
+        return htmlMovie;
     });
 
     nodo.innerHTML = listMovies.join("");
     addEventClick();
+    addIntersectionObs();
   
 }
 
@@ -168,6 +180,33 @@ const addEventClick = () => {
             const id = imgMovie.getAttribute("data-id");
             location.hash = `#movie=${id}`
         });
+    });
+}
+
+const loadUrlImg = (entradas) => {
+
+    
+     entradas.forEach(element => {
+        const urlImg = element.target.getAttribute("data-img");
+        
+        if(element.isIntersecting){
+            element.target.src = urlImg;
+        }
+        
+     });
+
+}
+
+const fntObserver = new IntersectionObserver(loadUrlImg);
+
+
+
+const addIntersectionObs = () => {
+    const listImg = document.querySelectorAll(".movie-img");
+    
+    listImg.forEach( image => {
+        
+        fntObserver.observe(image);
     });
 }
 

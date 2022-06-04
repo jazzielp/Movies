@@ -105,8 +105,28 @@ button {
   cursor: pointer;
 }
 
+.movie-container--Url-isNull{
+  display: grid !important;
+  place-items: center;
+  background: #8B48BF;
+  border-radius: 8px;
+  height: 244.625px;
+  min-height: 244.625px;
+  max-height: 244.625px;
+  width: 171.469px;
+  min-width: 171.469px;
+  max-width: 171.469px;
+  
+}
+
+.movie-container--Url-isNull h3{
+  font-size: 24px;
+  color: white;
+}
+
 .movie-img {
   border-radius: 8px;
+  min-height: 175px;
 }
 
 .movie-load{
